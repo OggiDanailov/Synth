@@ -1,6 +1,18 @@
-#osc {
+#C {
   width: 10%;
   height: 200px;
   background-color: blue;
 }
+
+
+
+.mute {
+  width: 10%;
+  height: 30px;
+  background-color: blue;
+}
+
+
+
+
 

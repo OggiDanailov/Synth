@@ -1,0 +1,88 @@
+#container {
+  margin: 0px auto;
+  width: 100%;
+  height: 800px;
+  border: 1px solid red;
+}
+  #keyboard {
+    margin-top: 200px;
+    margin-left: 10%;
+    position: absolute;
+    width: 80%;
+    height:400px;
+    border: 4px solid black;
+  }
+
+    #upper{
+      height: 250px;
+      border: 1px solid green;
+    }
+
+
+    #white{
+      z-index: 20;
+    }
+    .keys-white {
+      float: left;
+      width: 25.95px;
+      height: 150px;
+      border: 1px solid black;
+    }
+
+    #blacks1 {
+      width: 100%;
+      height: 80px;
+      position: absolute;
+    }
+
+      .keys-black{
+        background-color: black;
+        float: left;
+        width: 20px;
+        height: 80px;
+      }
+
+        #Db1 {margin-left: 17px;}
+        #Eb1 {margin-left: 10px;}
+
+        #Gb1 {margin-left: 35px;}
+        #Ab1 {margin-left: 9px;}
+        #Bb1 {margin-left: 8px;}
+
+        #Db2 {margin-left: 35px;}
+        #Eb2 {margin-left: 10px;}
+
+        #Gb2 {margin-left: 33px;}
+        #Ab2 {margin-left: 9px;}
+        #Bb2 {margin-left: 8px;}
+
+        #Db3 {margin-left: 35px;}
+        #Eb3 {margin-left: 10px;}
+
+        #Gb3 {margin-left: 33px;}
+        #Ab3 {margin-left: 9px;}
+        #Bb3 {margin-left: 8px;}
+
+        #Db4 {margin-left: 35px;}
+        #Eb4 {margin-left: 10px;}
+
+        #Gb4 {margin-left: 33px;}
+        #Ab4 {margin-left: 9px;}
+        #Bb4 {margin-left: 8px;}
+
+        #Db5 {margin-left: 35px;}
+        #Eb5 {margin-left: 10px;}
+
+        #Gb5 {margin-left: 33px;}
+        #Ab5 {margin-left: 9px;}
+        #Bb5 {margin-left: 8px;}
+
+    
+
+
+    
+
+
+
+
+
