@@ -3,133 +3,94 @@
 <head>
   <link rel="stylesheet" type="text/css" href="index2.css">
   <script src="index2.js"></script>
+  <script src="underscore.js"></script>
 </head>
 <body>
+
 <div id="container">
   <div id="keyboard">
     <div id="upper">
     </div>
     <div id="lower">
         <div id="white">
-        <div id="c1" class="keys-white">C1
-        </div>
-        <div id="d1" class="keys-white">D1
-        </div>
-        <div id="e1" class="keys-white">E1
-        </div>
-        <div id="f1" class="keys-white">F1
-        </div>
-        <div id="g1" class="keys-white">G1
-        </div>
-        <div id="a1" class="keys-white">A1
-        </div>
-        <div id="b1" class="keys-white">B1
-        </div>
-        <div id="c2" class="keys-white">C2
-        </div>
-        <div id="d2" class="keys-white">D2
-        </div>
-        <div id="e2" class="keys-white">E2
-        </div>
-        <div id="f2" class="keys-white">F2
-        </div>
-        <div id="g2" class="keys-white">G2
-        </div>
-        <div id="a2" class="keys-white">A2
-        </div>
-        <div id="b2" class="keys-white">B2
-        </div>
-        <div id="c3" class="keys-white">C3
-        </div>
-        <div id="d3" class="keys-white">D3
-        </div>
-        <div id="e3" class="keys-white">E3
-        </div>
-        <div id="f3" class="keys-white">F3
-        </div>
-        <div id="g3" class="keys-white">G3
-        </div>
-        <div id="a3" class="keys-white">A3
-        </div>
-        <div id="b3" class="keys-white">B3
-        </div>
-        <div id="c4" class="keys-white">C4
-        </div>
-        <div id="d4" class="keys-white">D4
-        </div>
-        <div id="e4" class="keys-white">E4
-        </div>
-        <div id="f4" class="keys-white">F4
-        </div>
-        <div id="g4" class="keys-white">G4
-        </div>
-        <div id="a4" class="keys-white">A4
-        </div>
-        <div id="b4" class="keys-white">B4
-        </div>
-         <div id="c5" class="keys-white">C5
-        </div>
-        <div id="d5" class="keys-white">D5
-        </div>
-        <div id="e5" class="keys-white">E5
-        </div>
-        <div id="f5" class="keys-white">F5
-        </div>
-        <div id="g5" class="keys-white">G5
-        </div>
-        <div id="a5" class="keys-white">A5
-        </div>
-        <div id="b5" class="keys-white">B5
-        </div>
-        <div id="c6" class="keys-white">C6
-        </div>
+        <div id="16" class="keys-white keys">C1</div>
+        <div id="18" class="keys-white keys">D1</div>
+        <div id="20" class="keys-white keys">E1</div>
+        <div id="21" class="keys-white keys">F1</div>
+        <div id="23" class="keys-white keys">G1</div>
+        <div id="25" class="keys-white keys">A1</div>
+        <div id="27" class="keys-white keys">B1</div>
+        <div id="28" class="keys-white keys">C2</div>
+        <div id="30" class="keys-white keys">D2</div>
+        <div id="32" class="keys-white keys">E2</div>
+        <div id="33" class="keys-white keys">F2</div>
+        <div id="35" class="keys-white keys">G2</div>
+        <div id="37" class="keys-white keys">A2</div>
+        <div id="39" class="keys-white keys">B2</div>
+        <div id="40" class="keys-white keys">C3</div>
+        <div id="42" class="keys-white keys">D3</div>
+        <div id="44" class="keys-white keys">E3</div>
+        <div id="45" class="keys-white keys">F3</div>
+        <div id="47" class="keys-white keys">G3</div>
+        <div id="49" class="keys-white keys">A3</div>
+        <div id="51" class="keys-white keys">B3</div>
+        <div id="52" class="keys-white keys">C4</div>
+        <div id="54" class="keys-white keys">D4</div>
+        <div id="56" class="keys-white keys">E4</div>
+        <div id="57" class="keys-white keys">F4</div>
+        <div id="59" class="keys-white keys">G4</div>
+        <div id="61" class="keys-white keys">A4</div>
+        <div id="63" class="keys-white keys">B4</div>
+        <div id="64" class="keys-white keys">C5</div>
+        <div id="66" class="keys-white keys">D5</div>
+        <div id="68" class="keys-white keys">E5</div>
+        <div id="69" class="keys-white keys">F5</div>
+        <div id="71" class="keys-white keys">G5</div>
+        <div id="73" class="keys-white keys">A5</div>
+        <div id="75" class="keys-white keys">B5</div>
+        <div id="76" class="keys-white keys">C6</div>
+    <div>
         
-            <div id="blacks1">
-                <div id="Db1" class="keys-black"></div>
-                <div id="Eb1" class="keys-black"></div>
+    <div id="blacks1">
+        <div id="17" class="keys-black keys"></div>
+        <div id="19" class="keys-black keys"></div>
 
-                <div id="Gb1" class="keys-black"></div>
-                <div id="Ab1" class="keys-black"></div>
-                <div id="Bb1" class="keys-black"></div>
+        <div id="22" class="keys-black keys"></div>
+        <div id="24" class="keys-black keys"></div>
+        <div id="26" class="keys-black keys"></div>
 
-                <div id="Db2" class="keys-black"></div>
-                <div id="Eb2" class="keys-black"></div>
+        <div id="29" class="keys-black keys"></div>
+        <div id="31" class="keys-black keys"></div>
 
-                <div id="Gb2" class="keys-black"></div>
-                <div id="Ab2" class="keys-black"></div>
-                <div id="Bb2" class="keys-black"></div>
+        <div id="34" class="keys-black keys"></div>
+        <div id="36" class="keys-black keys"></div>
+        <div id="38" class="keys-black keys"></div>
 
-                <div id="Db3" class="keys-black"></div>
-                <div id="Eb3" class="keys-black"></div>
+        <div id="41" class="keys-black keys"></div>
+        <div id="43" class="keys-black keys"></div>
 
-                <div id="Gb3" class="keys-black"></div>
-                <div id="Ab3" class="keys-black"></div>
-                <div id="Bb3" class="keys-black"></div>
+        <div id="46" class="keys-black keys"></div>
+        <div id="48" class="keys-black keys"></div>
+        <div id="50" class="keys-black keys"></div>
 
-                <div id="Db4" class="keys-black"></div>
-                <div id="Eb4" class="keys-black"></div>
+        <div id="53" class="keys-black keys"></div>
+        <div id="55" class="keys-black keys"></div>
 
-                <div id="Gb4" class="keys-black"></div>
-                <div id="Ab4" class="keys-black"></div>
-                <div id="Bb4" class="keys-black"></div>
+        <div id="58" class="keys-black keys"></div>
+        <div id="60" class="keys-black keys"></div>
+        <div id="62" class="keys-black keys"></div>
 
-                <div id="Db5" class="keys-black"></div>
-                <div id="Eb5" class="keys-black"></div>
+        <div id="65" class="keys-black keys"></div>
+        <div id="67" class="keys-black keys"></div>
 
-                <div id="Gb5" class="keys-black"></div>
-                <div id="Ab5" class="keys-black"></div>
-                <div id="Bb5" class="keys-black"></div>
-            </div>
+        <div id="70" class="keys-black keys"></div>
+        <div id="72" class="keys-black keys"></div>
+        <div id="74" class="keys-black keys"></div>
+    </div>
 
-        <div>
     </div> 
 
-
-
-
-
-
-</div>
+ </div>
 </div>
 
 

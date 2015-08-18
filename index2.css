@@ -41,41 +41,42 @@
         width: 20px;
         height: 80px;
       }
+     /* for more info regard this page: https://mothereff.in/css-escapes
+*/
+        #\31 7 {margin-left: 17px;}
+        #\31 9 {margin-left: 10px;}
 
-        #Db1 {margin-left: 17px;}
-        #Eb1 {margin-left: 10px;}
+        #\32 2 {margin-left: 35px;}
+        #\32 4 {margin-left: 9px;}
+        #\32 6 {margin-left: 8px;}
 
-        #Gb1 {margin-left: 35px;}
-        #Ab1 {margin-left: 9px;}
-        #Bb1 {margin-left: 8px;}
+        #\32 9 {margin-left: 35px;}
+        #\33 1 {margin-left: 10px;}
 
-        #Db2 {margin-left: 35px;}
-        #Eb2 {margin-left: 10px;}
+        #\33 4 {margin-left: 33px;}
+        #\33 6 {margin-left: 9px;}
+        #\33 8 {margin-left: 8px;}
 
-        #Gb2 {margin-left: 33px;}
-        #Ab2 {margin-left: 9px;}
-        #Bb2 {margin-left: 8px;}
+        #\34 1 {margin-left: 35px;}
+        #\34 3 {margin-left: 10px;}
 
-        #Db3 {margin-left: 35px;}
-        #Eb3 {margin-left: 10px;}
+        #\34 6 {margin-left: 33px;}
+        #\34 8 {margin-left: 9px;}
+        #\35 0 {margin-left: 8px;}
 
-        #Gb3 {margin-left: 33px;}
-        #Ab3 {margin-left: 9px;}
-        #Bb3 {margin-left: 8px;}
+        #\35 3 {margin-left: 35px;}
+        #\35 5 {margin-left: 10px;}
 
-        #Db4 {margin-left: 35px;}
-        #Eb4 {margin-left: 10px;}
+        #\35 8 {margin-left: 33px;}
+        #\36 0 {margin-left: 9px;}
+        #\36 2 {margin-left: 8px;}
 
-        #Gb4 {margin-left: 33px;}
-        #Ab4 {margin-left: 9px;}
-        #Bb4 {margin-left: 8px;}
+        #\36 5 {margin-left: 35px;}
+        #\36 7 {margin-left: 10px;}
 
-        #Db5 {margin-left: 35px;}
-        #Eb5 {margin-left: 10px;}
-
-        #Gb5 {margin-left: 33px;}
-        #Ab5 {margin-left: 9px;}
-        #Bb5 {margin-left: 8px;}
+        #\37 0 {margin-left: 33px;}
+        #\37 2 {margin-left: 9px;}
+        #\37 4 {margin-left: 8px;}
 
     
 

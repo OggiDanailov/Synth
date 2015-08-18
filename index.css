@@ -1,9 +1,10 @@
-#C {
-  width: 10%;
-  height: 200px;
+.key {
+  float: left;
+   width: 5%;
+  height: 40px;
+  margin: 3px;
   background-color: blue;
 }
-
 
 
 .mute {
