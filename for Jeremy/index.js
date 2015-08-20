@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   context = new AudioContext();
   $whiteContainer = $('#white');
   $blackContainer = $('#black');
+  oscillators = {};
 
     var pianoKeysFreq = _.map(pianoKeys, function(pianoKeys, i){
       keyNum = i + 16;
@@ -57,12 +58,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
     function populateKeys(keys){
 
       _.each(keys, function(key) {
-        name = key.name;
-        id = key.name;
-        color = key.color;
-        frequency = key.frequency;
+        var name = key.name;
+        var id = key.name;
+        var color = key.color;
+        var frequency = key.frequency;
         
-        div = "<div class='" + color + "' id='" + id + "'></div>";
+        var div = "<div class='" + color + "' id='" + id + "'></div>";
         
         if(color == "white"){
           $(div).appendTo($whiteContainer)
@@ -70,18 +71,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
           $(div).appendTo($blackContainer)
         };
 
-        oscillator = null
+
         
         $("#" + id).on('mousedown', function(){  
-          oscillator = context.createOscillator();        
-          oscillator.type = 'sine';
-          oscillator.frequency.value = frequency;
-          oscillator.connect(context.destination);
-          oscillator.start();
-        });
+          console.log(id)
+          oscillators[id] = context.createOscillator();
+          oscillators[id].type = 'sine';
+          oscillators[id].frequency.value = frequency;
+          oscillators[id].connect(context.destination);
+          oscillators[id].start();
+         });
 
         $("#" + id).on('mouseup', function() {
-          oscillator.disconnect();
+          oscillators[id].disconnect();
         });
       })  
     }
