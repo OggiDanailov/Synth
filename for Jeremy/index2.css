@@ -1,0 +1,40 @@
+#container {
+  margin: 0px auto;
+  width: 100%;
+  height: 800px;
+  border: 1px solid red;
+}
+  #keyboard {
+    margin-top: 200px;
+    margin-left: 10%;
+    position: absolute;
+    width: 80%;
+    height:400px;
+    border: 4px solid black;
+  }
+
+    #upper{
+      height: 250px;
+      border: 1px solid green;
+    }
+
+      #lower{
+      height: 150px;
+      border: 1px solid green;
+    }
+    .white{
+      float: left;
+      width: 25.95px;
+      height: 150px;
+      border: 1px solid black;
+      background-color: red;
+      }
+      .black{
+        float: left;
+        wodth:25.95px;
+        height: 90px;
+        background-color: black;
+      }
+
+
+
