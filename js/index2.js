@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", function(event) { 
 context = new AudioContext();
-var sine = document.getElementById('sine');
-var triangle =document.getElementById('triangle');
-var sawtooth = document.getElementById('sawtooth');
-var square = document.getElementById('square');
+// var sine = document.getElementById('sine');
+// var triangle =document.getElementById('triangle');
+// var sawtooth = document.getElementById('sawtooth');
+// var square = document.getElementById('square');
 
 oscillator = context.createOscillator();
 

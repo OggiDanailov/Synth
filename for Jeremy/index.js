@@ -45,12 +45,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   $whiteContainer = $('#white');
   $blackContainer = $('#black');
   oscillators = {};
-   oscillator = context.createOscillator();
-  var sine = document.getElementById('sine');
-  var triangle =document.getElementById('triangle');
-  var sawtooth = document.getElementById('sawtooth');
-  var square = document.getElementById('square');
-  
+  currentType = "sine";
 
     var pianoKeysFreq = _.map(pianoKeys, function(pianoKeys, i){
       keyNum = i + 16;
@@ -83,14 +78,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         
         $("#" + id).on('mousedown', function(){  
           oscillators[id] = context.createOscillator();
-          oscillators[id].type = 'triangle';
+          oscillators[id].type = currentType;
           oscillators[id].frequency.value = frequency;
           oscillators[id].connect(context.destination);
           oscillators[id].start();
-         });
-
-          
-          
+         });   
          
 
         $("#" + id).on('mouseup', function() {
@@ -101,7 +93,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
     populateKeys(whites);
     populateKeys(blacks);
 
-
+    document.getElementById("triangle").addEventListener("click", function(){
+     currentType = 'triangle';});
+    document.getElementById("square").addEventListener("click", function(){
+     currentType = 'square';});
+    document.getElementById("sine").addEventListener("click", function(){
+     currentType = 'sine';});
+    document.getElementById("sawtooth").addEventListener("click", function(){
+     currentType = 'sawtooth';});
 
 });
 
