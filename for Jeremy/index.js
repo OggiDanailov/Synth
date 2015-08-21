@@ -37,6 +37,7 @@ var pianoKeys =  [{name: "C1", color: "white"}, {name: "Db1", color: "black"},
                   {name: "G5", color: "white"}, {name: "Ab5", color: "black"},
                   {name: "A5", color: "white"}, {name: "Bb5", color: "black"},
                   {name: "B5", color: "white"},
+                  {name: "C6", color: "white"}
                   ] 
 
 document.addEventListener("DOMContentLoaded", function(event) { 
@@ -44,6 +45,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
   $whiteContainer = $('#white');
   $blackContainer = $('#black');
   oscillators = {};
+   oscillator = context.createOscillator();
+  var sine = document.getElementById('sine');
+  var triangle =document.getElementById('triangle');
+  var sawtooth = document.getElementById('sawtooth');
+  var square = document.getElementById('square');
+  
 
     var pianoKeysFreq = _.map(pianoKeys, function(pianoKeys, i){
       keyNum = i + 16;
@@ -71,16 +78,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
           $(div).appendTo($blackContainer)
         };
 
-
+          
+          
         
         $("#" + id).on('mousedown', function(){  
-          console.log(id)
           oscillators[id] = context.createOscillator();
-          oscillators[id].type = 'sine';
+          oscillators[id].type = 'triangle';
           oscillators[id].frequency.value = frequency;
           oscillators[id].connect(context.destination);
           oscillators[id].start();
          });
+
+          
+          
+         
 
         $("#" + id).on('mouseup', function() {
           oscillators[id].disconnect();
@@ -89,6 +100,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
     populateKeys(whites);
     populateKeys(blacks);
+
+
 
 });
 

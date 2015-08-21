@@ -4,7 +4,7 @@ var sine = document.getElementById('sine');
 var triangle =document.getElementById('triangle');
 var sawtooth = document.getElementById('sawtooth');
 var square = document.getElementById('square');
-var gain = context.creategain(); //gain
+
 oscillator = context.createOscillator();
 
 var oscillators = document.getElementsByClassName("keys");

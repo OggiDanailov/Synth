@@ -24,25 +24,67 @@
       height: 150px;
       border: 1px solid green;
     }
-    .white{
+    .white {
       float: left;
-      width: 25.95px;
+      width: 25.70px;
       height: 146px;
       border: 1px solid black;
-      background-color: lightgrey;
+      background-color: #e5e5e5;
       }
 
+      #wave {
+        width: 10%;
+        height: 120px;
+        background-color: #666666;
+        margin: 5px;
+      }
+      
 
-      .black{
+      .black {
         float: left;
-        width:25.95px;
+        width: 20.95px;
         height: 90px;
-        background-color: black;
+        background-color: #191919;
+        border-radius: 10px;
+        position: relative;
+        top: -150px;
       }
 
-      #Db1 {
-        margin-left: 20px;
-      }
+
+      #Db1 {margin-left: 17px;}
+      #Eb1 {margin-left: 7px;}
+
+      #Gb1 {margin-left: 36px;}
+      #Ab1 {margin-left: 7px;}
+      #Bb1 {margin-left: 8px;}
+
+      #Db2 {margin-left: 31px;}
+      #Eb2 {margin-left: 7px;}
+
+      #Gb2 {margin-left: 35px;}
+      #Ab2 {margin-left: 6px;}
+      #Bb2 {margin-left: 7px;}
+
+      #Db3 {margin-left: 35px;}
+      #Eb3 {margin-left: 7px;}
+
+      #Gb3 {margin-left: 34px;}
+      #Ab3 {margin-left: 7px;}
+      #Bb3 {margin-left: 7px;}
+
+      #Db4 {margin-left: 34px;}
+      #Eb4 {margin-left: 7px;}
+
+      #Gb4 {margin-left: 35px;}
+      #Ab4 {margin-left: 6px;}
+      #Bb4 {margin-left: 7px;}
+
+      #Db5 {margin-left: 34px;}
+      #Eb5 {margin-left: 6px;}
+
+      #Gb5 {margin-left: 36px;}
+      #Ab5 {margin-left: 6px;}
+      #Bb5 {margin-left: 7px;}
 
 
 
