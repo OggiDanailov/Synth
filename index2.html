@@ -1,15 +1,24 @@
 <!Doctype html>
 <html>
 <head>
-  <link rel="stylesheet" type="text/css" href="index2.css">
-  <script src="index2.js"></script>
-  <script src="underscore.js"></script>
+  <link rel="stylesheet" type="text/css" href="stylesheets/index2.css">
+  <script src="js/index2.js"></script>
+  <script src="js/underscore.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <!--  midiBridge.init(function(midiEvent) {
+   yourCoolFunction(midiEvent);
+ }); -->evenutally is supposed to get connection with keyboard
 </head>
 <body>
 
 <div id="container">
   <div id="keyboard">
     <div id="upper">
+        <button id='sine'>Sine</button>
+        <button id='triangle'>Triangle</button>
+        <button id="sawtooth">Sawtooth</button>
+        <button id="square">Square</button>
+
     </div>
     <div id="lower">
         <div id="white">
@@ -48,7 +57,7 @@
         <div id="71" class="keys-white keys">G5</div>
         <div id="73" class="keys-white keys">A5</div>
         <div id="75" class="keys-white keys">B5</div>
-        <div id="76" class="keys-white keys">C6</div>
+        <div id="78" class="keys-white keys">C6</div>
     <div>
         
     <div id="blacks1">
