@@ -45,7 +45,26 @@ document.addEventListener("DOMContentLoaded", function(event) {
   $whiteContainer = $('#white');
   $blackContainer = $('#black');
   oscillators = {};
-  currentType = "sine";
+  currentType = "sine"; //set a defualt value for the wave form
+  var convolver = context.createConvolver(); //this is the echo creation
+
+  var soundSource, concertHallBuffer;  //this is the echo
+  var request = new XMLHttpRequest();
+  request.open("GET", "./audio_files/echo_Logic.wav", true);
+  request.responseType = "arraybuffer";
+
+  request.onload = function() {
+    var audioData = request.response;
+      context.decodeAudioData(audioData, function(buffer) {
+        concertHallBuffer = buffer;   
+
+        soundSource = context.createBufferSource();
+        soundSource.buffer = concertHallBuffer;
+        convolver.buffer = concertHallBuffer;
+      }, function(e){"Error with decoding audio data" + e.err});
+  }
+
+  request.send(); //end of the echo
 
     var pianoKeysFreq = _.map(pianoKeys, function(pianoKeys, i){
       keyNum = i + 16;
@@ -80,7 +99,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
           oscillators[id] = context.createOscillator();
           oscillators[id].type = currentType;
           oscillators[id].frequency.value = frequency;
-          oscillators[id].connect(context.destination);
+          oscillators[id].connect(convolver);
+          convolver.connect(context.destination);
           oscillators[id].start();
          });   
          
