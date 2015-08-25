@@ -53,6 +53,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var echo2 = document.getElementById('echo2');
   var echo3 = document.getElementById('echo3');
   var echo4 = document.getElementById('echo4');
+  
 
   function setupEcho(echo){ 
     return function() {
@@ -81,7 +82,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
   echo3.onclick = setupEcho(3);
   echo4.onclick = setupEcho(4);
   
-  
 
     var pianoKeysFreq = _.map(pianoKeys, function(pianoKeys, i){
       keyNum = i + 16;
@@ -107,15 +107,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
           $(div).appendTo($whiteContainer)
         } else {
           $(div).appendTo($blackContainer)
-        };
-
-          
-          
+        };          
         
         $("#" + id).on('mousedown', function(){  
           oscillators[id] = context.createOscillator();
           oscillators[id].type = currentType;
           oscillators[id].frequency.value = frequency;
+          oscillators[id].connect(context.destination);
           oscillators[id].connect(convolver);
           convolver.connect(context.destination);
           oscillators[id].start();
