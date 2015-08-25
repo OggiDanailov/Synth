@@ -49,22 +49,39 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var convolver = context.createConvolver(); //this is the echo creation
 
   var soundSource, concertHallBuffer;  //this is the echo
-  var request = new XMLHttpRequest();
-  request.open("GET", "./audio_files/echo_Logic.wav", true);
-  request.responseType = "arraybuffer";
+  var echo1 = document.getElementById('echo1');
+  var echo2 = document.getElementById('echo2');
+  var echo3 = document.getElementById('echo3');
+  var echo4 = document.getElementById('echo4');
 
-  request.onload = function() {
-    var audioData = request.response;
-      context.decodeAudioData(audioData, function(buffer) {
-        concertHallBuffer = buffer;   
+  function setupEcho(echo){ 
+    return function() {
+      var request = new XMLHttpRequest();
+      request.open("GET", "./audio_files/echo" + echo + ".wav", true);
+      request.responseType = "arraybuffer";
 
-        soundSource = context.createBufferSource();
-        soundSource.buffer = concertHallBuffer;
-        convolver.buffer = concertHallBuffer;
-      }, function(e){"Error with decoding audio data" + e.err});
+      request.onload = function() {
+        var audioData = request.response;
+        context.decodeAudioData(audioData, function(buffer) {
+          concertHallBuffer = buffer;   
+
+          soundSource = context.createBufferSource();
+          soundSource.buffer = concertHallBuffer;
+          convolver.buffer = concertHallBuffer;
+        }, function(e){"Error with decoding audio data" + e.err});
+      }
+
+      request.send();
+    }
+    
   }
-
-  request.send(); //end of the echo
+   
+  echo1.onclick = setupEcho(1);
+  echo2.onclick = setupEcho(2);
+  echo3.onclick = setupEcho(3);
+  echo4.onclick = setupEcho(4);
+  
+  
 
     var pianoKeysFreq = _.map(pianoKeys, function(pianoKeys, i){
       keyNum = i + 16;
