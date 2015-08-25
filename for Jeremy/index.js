@@ -47,12 +47,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
   oscillators = {};
   currentType = "sine"; //set a defualt value for the wave form
   var convolver = context.createConvolver(); //this is the echo creation
+  var volume = context.createGain(); //this is the volume
+  
 
   var soundSource, concertHallBuffer;  //this is the echo
   var echo1 = document.getElementById('echo1');
   var echo2 = document.getElementById('echo2');
   var echo3 = document.getElementById('echo3');
   var echo4 = document.getElementById('echo4');
+
+ var gainSlider = document.getElementById("gainSlider");
+  gainSlider.addEventListener('change', function() {
+  volume.gain.value = this.value;
+  });
   
 
   function setupEcho(echo){ 
@@ -113,9 +120,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
           oscillators[id] = context.createOscillator();
           oscillators[id].type = currentType;
           oscillators[id].frequency.value = frequency;
-          oscillators[id].connect(context.destination);
+          oscillators[id].connect(volume);
+
           oscillators[id].connect(convolver);
-          convolver.connect(context.destination);
+          convolver.connect(volume);
+          volume.connect(context.destination);
           oscillators[id].start();
          });   
          
