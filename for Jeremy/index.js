@@ -146,11 +146,11 @@ distortion.oversample = '4x';
           oscillators[id].connect(volume);
           
           oscillators[id].connect(convolver);
-          // $("#flipSwitch").on("change",function(){
-          //   var sw = $(this).val();
-          //   if(sw == "on"){oscillators[id].connect(distortion);      
-          //   }else{oscillators[id].connect(distortion)}   
-          //   });
+          $("#flipSwitch").on("change",function(){
+            var sw = $(this).val();
+            if(sw == "on"){oscillators[id].connect(distortion);      
+            }else{oscillators[id].disconnect(distortion)}   
+            });
           
 
           distortion.connect(convolver)
