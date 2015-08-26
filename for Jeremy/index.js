@@ -48,7 +48,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
   currentType = "sine"; //set a defualt value for the wave form
   var convolver = context.createConvolver(); //this is the echo creation
   var volume = context.createGain(); //this is the volume
-  
+  var distortion = context.createWaveShaper();
+
+    
 
   var soundSource, concertHallBuffer;  //this is the echo
   var echo1 = document.getElementById('echo1');
@@ -60,6 +62,26 @@ document.addEventListener("DOMContentLoaded", function(event) {
   gainSlider.addEventListener('change', function() {
   volume.gain.value = this.value;
   });
+
+  var distSlider = document.getElementById("distSlider");
+
+  function makeDistortionCurve(amount) {
+  var k = typeof amount === 'number' ? amount : 50,
+    n_samples = 44100,
+    curve = new Float32Array(n_samples),
+    deg = Math.PI / 180,
+    i = 0,
+    x;
+    for ( ; i < n_samples; ++i ) {
+    x = i * 9 / n_samples - 1;
+    curve[i] = ( 7 + k ) * x * 23 * deg / ( Math.PI + k * Math.abs(x) );
+    }
+  return curve;
+  };
+
+
+distortion.curve = makeDistortionCurve(distSlider);
+distortion.oversample = '4x';
   
 
   function setupEcho(echo){ 
@@ -120,9 +142,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
           oscillators[id] = context.createOscillator();
           oscillators[id].type = currentType;
           oscillators[id].frequency.value = frequency;
-          oscillators[id].connect(volume);
 
+          oscillators[id].connect(volume);
+          
           oscillators[id].connect(convolver);
+          // $("#flipSwitch").on("change",function(){
+          //   var sw = $(this).val();
+          //   if(sw == "on"){oscillators[id].connect(distortion);      
+          //   }else{oscillators[id].connect(distortion)}   
+          //   });
+          
+
+          distortion.connect(convolver)
           convolver.connect(volume);
           volume.connect(context.destination);
           oscillators[id].start();
@@ -145,6 +176,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
      currentType = 'sine';});
     document.getElementById("sawtooth").addEventListener("click", function(){
      currentType = 'sawtooth';});
+
+
 
 });
 
