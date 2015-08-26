@@ -49,6 +49,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var convolver = context.createConvolver(); //this is the echo creation
   var volume = context.createGain(); //this is the volume
   var distortion = context.createWaveShaper();
+  var delay = context.createDelay(); 
+  var mix = context.createGain();  // for effect (Flanger) sound
+  var depth = context.createGain();  // for LFO
+  var feedback = context.createGain();
 
     
 
@@ -64,6 +68,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   });
 
   var distSlider = document.getElementById("distSlider");
+  var DelaySlider = document.getElementById("DelaySlider");
 
   function makeDistortionCurve(amount) {
   var k = typeof amount === 'number' ? amount : 50,
@@ -122,6 +127,25 @@ distortion.oversample = '4x';
     whites = _.where(pianoKeys, {color: "white"});
     blacks = _.where(pianoKeys, {color: "black"});
 
+    function setupDelay(){
+          depth.connect(delay.delayTime);
+          delay.connect(feedback);
+          feedback.connect(delay);
+          var depthRate = 0.2;  // 80 %
+
+          if (this.value){
+            delay.delayTime.value = this.value;
+          } else {
+            delay.delayTime.value = 0.0;
+          }
+          
+          //var lfo = context.createOscillator();
+          depth.gain.value = delay.delayTime.value * depthRate;  // 5 msec +- 4 (5 * 0.8) msec
+          //lfo.frequency.value = 50;  // 5 Hz
+          mix.gain.value = 0.3;
+          feedback.gain.value = 0.3;
+    }
+
     function populateKeys(keys){
 
       _.each(keys, function(key) {
@@ -144,6 +168,11 @@ distortion.oversample = '4x';
           oscillators[id].frequency.value = frequency;
 
           oscillators[id].connect(volume);
+          oscillators[id].connect(delay);
+          oscillators[id].connect(distortion);
+          delay.connect(mix);
+          mix.connect(volume);
+          volume.connect(context.destination);
           
           oscillators[id].connect(convolver);
           $("#flipSwitch").on("change",function(){
@@ -156,17 +185,28 @@ distortion.oversample = '4x';
           distortion.connect(convolver)
           convolver.connect(volume);
           volume.connect(context.destination);
+          
+
+          //lfo.connect(depth);
+          
+
+          //lfo.start(0)
+          //});
+          
           oscillators[id].start();
          });   
          
 
         $("#" + id).on('mouseup', function() {
           oscillators[id].disconnect();
+          //lfo.disconnect();
         });
       })  
     }
     populateKeys(whites);
     populateKeys(blacks);
+    setupDelay();
+    DelaySlider.addEventListener('change', setupDelay)
 
     document.getElementById("triangle").addEventListener("click", function(){
      currentType = 'triangle';});

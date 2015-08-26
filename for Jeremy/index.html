@@ -19,8 +19,8 @@
       <div>
         Volume <br>
         <input id="gainSlider" type="range" min="0" max="1" step="0.05" value="0.5"/>
-
       </div>
+
       <div id="wave"><p>Wave Forms</p>
         <button id='sine'>Sine</button>
         <button id='triangle'>Triangle</button>
@@ -37,12 +37,16 @@
       <br>
       <div data-role="page" id="home">
         <div data-role="content">
-        <label for="flipSwitch">Flip toggle switch:</label>
+        <label for="flipSwitch">Distortion</label>
         <select name="flipSwitch" id="flipSwitch" data-role="slider">
           <option value="off">Off</option>
           <option value="on">On</option>
-       </select>                  
+        </select>                  
         </div>
+      </div>
+      <div id='right'>
+      Delay <br>
+        <input id="DelaySlider" type=range min=0 max=1 step=0.01>
       </div>
 
     </div>
