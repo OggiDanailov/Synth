@@ -83,21 +83,21 @@ function onMIDIKeyDown(id, frequency, velocity){
 
   oscillators[id].connect(volume);
   oscillators[id].connect(delay);
-  oscillators[id].connect(distortion);
+  // oscillators[id].connect(distortion);
   delay.connect(mix);
   mix.connect(volume);
   volume.connect(context.destination);
 
   oscillators[id].connect(convolver);
-  $("#flipSwitch").on("change",function(){
-    var sw = $(this).val();
-    if(sw == "on"){
-      oscillators[id].connect(distortion);
-    }else{oscillators[id].disconnect(distortion)}
-    });
+  // $("#flipSwitch").on("change",function(){
+  //   var sw = $(this).val();
+  //   if(sw == "on"){
+  //     oscillators[id].connect(distortion);
+  //   }else{oscillators[id].disconnect(distortion)}
+  //   });
 
 
-  distortion.connect(convolver)
+  // distortion.connect(convolver)
   convolver.connect(volume);
   volume.connect(context.destination);
 
