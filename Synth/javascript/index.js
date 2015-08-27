@@ -38,29 +38,143 @@ var pianoKeys =  [{name: "C1", color: "white"}, {name: "Db1", color: "black"},
                   {name: "A5", color: "white"}, {name: "Bb5", color: "black"},
                   {name: "B5", color: "white"},
                   {name: "C6", color: "white"}
-                  ]
+                  ];
+
+var noteNames = {
+  'sharp' : ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'],
+  'flat' : ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'],
+  'enharmonic-sharp' : ['B#', 'C#', 'C##', 'D#', 'D##', 'E#', 'F#', 'F##', 'G#', 'G##', 'A#', 'A##'],
+  'enharmonic-flat' : ['Dbb', 'Db', 'Ebb', 'Eb', 'Fb', 'Gbb', 'Gb', 'Abb', 'Ab', 'Bbb', 'Bb', 'Cb']
+};
+
+
+var convolver;
+var volume;
+var distortion;
+var delay;
+var mix;
+var depth;
+var feedback;
+
+
+// get note name from MIDI note number
+getNoteName = function(number, mode) {
+  mode = mode || 'sharp';
+  //console.log(mode);
+  //var octave = Math.floor((number / 12) - 2), // → in Cubase central C = C3 instead of C4
+  var octave = Math.floor((number / 12) - 1),
+      noteName = noteNames[mode][number % 12];
+  return [noteName,octave];
+}
+
+getFrequency = function(number){
+  var pitch = 440;
+  return pitch * Math.pow(2,(number - 69)/12); // midi standard, see: http://en.wikipedia.org/wiki/MIDI_Tuning_Standard
+};
+
+
+// called when a key is pressed either on the virtual HTML piano or on a connected MIDI keyboard
+function onMIDIKeyDown(id, frequency, velocity){
+  console.log(id, frequency, velocity);
+
+  oscillators[id] = context.createOscillator();
+  oscillators[id].type = currentType;
+  oscillators[id].frequency.value = frequency;
+
+  oscillators[id].connect(volume);
+  oscillators[id].connect(delay);
+  oscillators[id].connect(distortion);
+  delay.connect(mix);
+  mix.connect(volume);
+  volume.connect(context.destination);
+
+  oscillators[id].connect(convolver);
+  $("#flipSwitch").on("change",function(){
+    var sw = $(this).val();
+    if(sw == "on"){
+      oscillators[id].connect(distortion);
+    }else{oscillators[id].disconnect(distortion)}
+    });
+
+
+  distortion.connect(convolver)
+  convolver.connect(volume);
+  volume.connect(context.destination);
+
+
+  //lfo.connect(depth);
+
+
+  //lfo.start(0)
+  //});
+
+  oscillators[id].start();
+}
+
+function onMIDIKeyUp(id){
+  oscillators[id].disconnect();
+  //lfo.disconnect();
+}
 
 document.addEventListener("DOMContentLoaded", function(event) {
 
-  window.addEventListener('load', function() {
-    midiBridge.init(function(midiEvent) {
-        console.log(midiEvent);
-    });
-}, false)
+  if(navigator.requestMIDIAccess !== undefined){
+    navigator.requestMIDIAccess().then(
 
-  
+      function onFulfilled(access, options){
+        MIDIAccess = access;
+        showMIDIPorts();
+      },
+
+      function onRejected(e){
+        console.log('No access to MIDI devices:' + e);
+      }
+    );
+  }else{
+    // browsers without WebMIDI API or Jazz plugin
+    console.log('No access to MIDI devices');
+  }
+
+  // see this example: http://abudaan.github.io/heartbeat/examples/#!midi_in_&_out/webmidi_create_midi_events
+  function showMIDIPorts(){
+    console.log('MIDI supported');
+    var inputs = [];
+    MIDIAccess.inputs.forEach(function(port, key){
+      // console.log(port);
+      inputs.push(port);
+    });
+    // connect the first found MIDI keyboard
+    var input = inputs[2];
+    console.log(input)
+    // explicitly open MIDI port
+    input.open();
+    input.addEventListener('midimessage', function(e){
+      console.log(e)
+      var type = e.data[0];
+      var data1 = e.data[1];
+      var data2 = e.data[2];
+      var noteName = getNoteName(data1);
+      noteName = noteName[0] + noteName[1];
+      if(type === 144 && data2 !== 0){
+        onMIDIKeyDown(noteName, getFrequency(data1), data2);
+      }else if(type === 128 || (type === 144 && data2 === 0)){
+        onMIDIKeyUp(noteName);
+      }
+    }, false);
+  }
+
   context = new AudioContext();
   $whiteContainer = $('#white');
   $blackContainer = $('#black');
   oscillators = {};
   currentType = "sine"; //set a defualt value for the wave form
-  var convolver = context.createConvolver(); //this is the echo creation
-  var volume = context.createGain(); //this is the volume
-  var distortion = context.createWaveShaper();
-  var delay = context.createDelay();
-  var mix = context.createGain();  // for effect (Flanger) sound
-  var depth = context.createGain();  // for LFO
-  var feedback = context.createGain();
+  convolver = context.createConvolver(); //this is the echo creation
+  volume = context.createGain(); //this is the volume
+  distortion = context.createWaveShaper();
+  delay = context.createDelay();
+  mix = context.createGain();  // for effect (Flanger) sound
+  depth = context.createGain();  // for LFO
+  feedback = context.createGain();
 
 
 
@@ -170,48 +284,13 @@ distortion.oversample = '4x';
           $(div).appendTo($blackContainer)
         };
 
-        $("#" + id).on('mousedown', function(){
-          oscillators[id] = context.createOscillator();
-          oscillators[id].type = currentType;
-          oscillators[id].frequency.value = frequency;
-
-          oscillators[id].connect(volume);
-          oscillators[id].connect(delay);
-          oscillators[id].connect(distortion);
-          delay.connect(mix);
-          mix.connect(volume);
-          volume.connect(context.destination);
-
-          oscillators[id].connect(convolver);
-          $("#flipSwitch").on("change",function(){
-            var sw = $(this).val();
-            if(sw == "on"){oscillators[id].connect(distortion);
-            }else{oscillators[id].disconnect(distortion)}
-            });
-
-
-          distortion.connect(convolver)
-          convolver.connect(volume);
-          volume.connect(context.destination);
-
-
-          //lfo.connect(depth);
-
-
-          //lfo.start(0)
-          //});
-
-          oscillators[id].start();
-
-
-         });
-
+        $("#" + id).on('mousedown', function() {
+          onMIDIKeyDown(id, frequency);
+        });
 
         $("#" + id).on('mouseup', function() {
-          oscillators[id].disconnect();
-          //lfo.disconnect();
+          onMIDIKeyUp(id);
         });
-      
       })
 
     }
@@ -229,7 +308,7 @@ distortion.oversample = '4x';
     document.getElementById("sawtooth").addEventListener("click", function(){
      currentType = 'sawtooth';});
 
-     
+
 
 
 
