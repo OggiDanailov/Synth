@@ -1,0 +1,64 @@
+<!Doctype html>
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script type="text/javascript" src="javascript/midibridge-0.5.4.min.js"></script>
+  <script src="javascript/index.js"></script>
+  <script src="javascript/underscore.js"></script>
+  <link rel="stylesheet" type="text/css" href="index2.css">
+
+ <!--   midiBridge.init(function(midiEvent) {
+   yourCoolFunction(midiEvent);
+ });evenutally is supposed to get connection with keyboard -->
+</head>
+<body>
+
+<div id="container">
+  <div id="keyboard">
+
+    <div id="upper">
+      <div>
+        Volume <br>
+        <input id="gainSlider" type="range" min="0" max="10" step="0.5" value="0.5"/>
+      </div>
+
+      <div id="wave"><p>Wave Forms</p>
+        <button id='sine'>Sine</button>
+        <button id='triangle'>Triangle</button>
+        <button id="sawtooth">Sawtooth</button>
+        <button id="square">Square</button>
+      </div>
+      <br>
+       <div id="reverbs"><p>Reverbs</p>
+        <button id='echo1' selected='false'>Echo 1</button>
+        <button id='echo2' selected='false'>Echo 2</button>
+        <button id="echo3" selected='false'>Echo 3</button>
+        <button id="echo4" selected='false'>Echo 4</button>
+      </div>
+      <br>
+      <div data-role="page" id="home">
+        <div data-role="content">
+        <label for="flipSwitch">Distortion</label>
+        <select name="flipSwitch" id="flipSwitch" data-role="slider">
+          <option value="off">Off</option>
+          <option value="on">On</option>
+        </select>
+        </div>
+      </div>
+      <div id='right'>
+      Delay <br>
+        <input id="DelaySlider" type=range min=0 max=1 step=0.01>
+      </div>
+
+    </div>
+
+    <div id="lower">
+        <div id="white">
+        </div>
+
+        <div id="black">
+        </div>
+    </div>
+
+  </div>
+</div>
