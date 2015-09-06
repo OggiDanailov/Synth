@@ -83,10 +83,14 @@ function onMIDIKeyDown(id, frequency, velocity){
 
   oscillators[id].connect(volume);
   oscillators[id].connect(delay);
+  oscillators[id].connect(biquadFilter);
   // oscillators[id].connect(distortion);
   delay.connect(mix);
   mix.connect(volume);
+  delay.connect(biquadFilter);
+  biquadFilter.connect(volume);
   volume.connect(context.destination);
+
 
   oscillators[id].connect(convolver);
   // $("#flipSwitch").on("change",function(){
@@ -167,7 +171,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
   $whiteContainer = $('#white');
   $blackContainer = $('#black');
   oscillators = {};
-  currentType = "sine"; //set a defualt value for the wave form
+  currentType = "sine";
+
+  biquadFilter = context.createBiquadFilter(); //set a defualt value for the wave form
+
   convolver = context.createConvolver(); //this is the echo creation
   volume = context.createGain(); //this is the volume
   distortion = context.createWaveShaper();
@@ -192,23 +199,23 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var distSlider = document.getElementById("distSlider");
   var DelaySlider = document.getElementById("DelaySlider");
 
-  function makeDistortionCurve(amount) {
-  var k = typeof amount === 'number' ? amount : 50,
-    n_samples = 44100,
-    curve = new Float32Array(n_samples),
-    deg = Math.PI / 180,
-    i = 0,
-    x;
-    for ( ; i < n_samples; ++i ) {
-    x = i * 9 / n_samples - 1;
-    curve[i] = ( 7 + k ) * x * 23 * deg / ( Math.PI + k * Math.abs(x) );
-    }
-  return curve;
-  };
+//   function makeDistortionCurve(amount) {
+//   var k = typeof amount === 'number' ? amount : 50,
+//     n_samples = 44100,
+//     curve = new Float32Array(n_samples),
+//     deg = Math.PI / 180,
+//     i = 0,
+//     x;
+//     for ( ; i < n_samples; ++i ) {
+//     x = i * 5 / n_samples - 1;
+//     curve[i] = ( 7 + k ) * x * 17 * deg / ( Math.PI + k * Math.abs(x) );
+//     }
+//   return curve;
+//   };
 
 
-distortion.curve = makeDistortionCurve(distSlider);
-distortion.oversample = '4x';
+// distortion.curve = makeDistortionCurve(distSlider);
+// distortion.oversample = '4x';
 
 
   function setupEcho(echo){
@@ -261,12 +268,54 @@ distortion.oversample = '4x';
             delay.delayTime.value = 0.0;
           }
 
-          //var lfo = context.createOscillator();
+          // var lfo = context.createOscillator();
           depth.gain.value = delay.delayTime.value * depthRate;  // 5 msec +- 4 (5 * 0.8) msec
-          //lfo.frequency.value = 50;  // 5 Hz
+          // lfo.frequency.value = 50;  // 5 Hz
           mix.gain.value = 0.3;
           feedback.gain.value = 0.3;
     }
+
+              ////////////////////////////////////////////////////
+        // currentFilter = "allpass";
+
+        // document.getElementById("lowpass").addEventListener("click", function(){
+        //  currentFilter= 'lowpass';});
+        // document.getElementById("highpass").addEventListener("click", function(){
+        //  currentFilter = 'highpass';});
+        // document.getElementById("allpass").addEventListener("click", function(){
+        //  currentFilter = 'allpass';});
+        // document.getElementById("nada").addEventListener("click", function(){
+        //  currentFilter = 'notch';});
+              
+          // biquadFilter.frequency.value = 1000;
+          biquadFilter.type = 'lowpass';
+          // biquadFilter.gain.value = slider;
+          // biquadFilter.detune.value = 0;
+          // biquadFilter.Q.value = 0; // 80 %
+
+          // var slider = document.getElementById("Slider");
+          //   slider.addEventListener('change', function() {
+          //   biquadFilter.gain.value = this.value;
+          //   });
+
+            // var quality = document.getElementById("q");
+            //   quality.addEventListener('change', function() {
+            //   biquadFilter.Q.value = this.value;
+            //   });
+
+              // var tune = document.getElementById("tune");
+              //   tune.addEventListener('change', function() {
+              //   biquadFilter.detune.value = this.value;
+              //   });
+
+
+            var freq = document.getElementById("Freq");
+              freq.addEventListener('change', function() {
+              biquadFilter.frequency.value = this.value;
+              });
+
+    //////////////////////////////////////////////////////
+
 
     function populateKeys(keys){
 
@@ -293,8 +342,11 @@ distortion.oversample = '4x';
         });
       })
 
+
+           
     }
     populateKeys(whites);
+   
     populateKeys(blacks);
     setupDelay();
     DelaySlider.addEventListener('change', setupDelay)
