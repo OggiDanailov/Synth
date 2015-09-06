@@ -7,7 +7,7 @@ html *
   margin: 0px auto;
   width: 100%;
   height: 800px;
-  border: 1px solid red;
+  /*border: 1px solid red;*/
   background-color: #003b58;
 }
   #keyboard {
@@ -24,7 +24,7 @@ html *
 
     #upper{
       height: 250px;
-      border: 1px solid green;
+      /*border: 1px solid green;*/
     }
 
     #sine {
@@ -74,8 +74,8 @@ html *
     }
     .white {
       float: left;
-      width: 25.90px;
-      height: 146px;
+      width: 25.92px;
+      height: 148px;
       border: 1px solid black;
       background-color: #e5e5e5;
       }
