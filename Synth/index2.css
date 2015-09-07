@@ -42,11 +42,11 @@ html *
       background-color: #8ccc96;
     }
 
-    #echo1{
+    #echo1, #echo2, #echo3, #echo4, #echo5{
       margin-left: 5px;
       background-color: #8ccc96;
     }
-    #echo2{
+   /* #echo2{
       background-color: #8ccc96;
     }
     #echo3{
@@ -54,7 +54,7 @@ html *
     }
     #echo4{
       background-color: #8ccc96;
-    }
+    }*/
 
     #flipSwitch{
       background-color: #8ccc96;

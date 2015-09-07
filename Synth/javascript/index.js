@@ -311,6 +311,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var echo2 = document.getElementById('echo2');
   var echo3 = document.getElementById('echo3');
   var echo4 = document.getElementById('echo4');
+  var echo5 = document.getElementById('echo5');
 
   }
 
@@ -318,6 +319,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   echo2.onclick = setupEcho(2);
   echo3.onclick = setupEcho(3);
   echo4.onclick = setupEcho(4);
+  echo5.onclick = setupEcho(5);
 
 
     var pianoKeysFreq = _.map(pianoKeys, function(pianoKeys, i){
