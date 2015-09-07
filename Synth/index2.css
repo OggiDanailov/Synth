@@ -30,7 +30,7 @@ html *
     #sine {
       margin-left: 5px;
       background-color: #8ccc96;
-      border-color: #26004c;
+      /*border-color: #26004c;*/
     }
     #triangle{
       background-color: #8ccc96;

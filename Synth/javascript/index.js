@@ -178,18 +178,38 @@ document.addEventListener("DOMContentLoaded", function(event) {
   convolver = context.createConvolver(); //this is the echo creation
   volume = context.createGain(); //this is the volume
   distortion = context.createWaveShaper();
+
   delay = context.createDelay();
-  mix = context.createGain();  // for effect (Flanger) sound
-  depth = context.createGain();  // for LFO
+  lfo = context.createOscillator();
+  depth = context.createGain();
+  mix = context.createGain();
   feedback = context.createGain();
 
+  function setupChorusLfo(){ 
 
+    delay.connect(mix);
+    mix.connect(context.destination);
+    lfo.connect(depth);
+    depth.connect(delay.delayTime);
+    delay.connect(feedback);
+    feedback.connect(delay);
 
-  var soundSource, concertHallBuffer;  //this is the echo
-  var echo1 = document.getElementById('echo1');
-  var echo2 = document.getElementById('echo2');
-  var echo3 = document.getElementById('echo3');
-  var echo4 = document.getElementById('echo4');
+    if (this.value){
+            lfo.frequency.value = this.value;
+          } else {
+            lfo.frequency.value = 0.0;
+          }
+
+           var depthRate = 0.8; 
+          delay.delayTime.value  = 0.005;          
+          depth.gain.value = delay.delayTime.value * depthRate;  // 5 msec +- 4 (5 * 0.8) msec
+          mix.gain.value = 0.4;
+          feedback.gain.value = 0.4;
+
+          lfo.start(0);
+  }
+
+ 
 
  var gainSlider = document.getElementById("gainSlider");
   gainSlider.addEventListener('change', function() {
@@ -198,6 +218,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   var distSlider = document.getElementById("distSlider");
   var DelaySlider = document.getElementById("DelaySlider");
+  var lfoSlider = document.getElementById('lfo');
 
 //   function makeDistortionCurve(amount) {
 //   var k = typeof amount === 'number' ? amount : 50,
@@ -237,6 +258,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
       request.send();
     }
+     var soundSource, concertHallBuffer;  //this is the echo
+  var echo1 = document.getElementById('echo1');
+  var echo2 = document.getElementById('echo2');
+  var echo3 = document.getElementById('echo3');
+  var echo4 = document.getElementById('echo4');
 
   }
 
@@ -348,8 +374,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
     populateKeys(whites);
    
     populateKeys(blacks);
+    setupChorusLfo();
     setupDelay();
-    DelaySlider.addEventListener('change', setupDelay)
+    DelaySlider.addEventListener('change', setupDelay);
+    lfoSlider.addEventListener('change', setupChorusLfo);
+
 
     document.getElementById("triangle").addEventListener("click", function(){
      currentType = 'triangle';});
