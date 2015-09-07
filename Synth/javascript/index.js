@@ -207,9 +207,55 @@ document.addEventListener("DOMContentLoaded", function(event) {
           feedback.gain.value = 0.4;
 
           lfo.start(0);
+  }  
+
+
+  function setupFeedbackLfo(){ 
+    
+    // delay.connect(mix);
+    mix.connect(context.destination);
+    lfo.connect(depth);
+    depth.connect(feedback);
+    // delay.connect(feedback);
+    feedback.connect(context.destination);
+
+    if (this.value){
+            feedback.gain.value = this.value;
+          } else {
+            feedback.gain.value = 0.0;
+          }
+
+           var depthRate = 0.8; 
+           // lfo.frequency.value = 0.5;
+          // delay.delayTime.value  = 0.005;          
+          depth.gain.value = delay.delayTime.value * depthRate;  // 5 msec +- 4 (5 * 0.8) msec
+          // mix.gain.value = 0.4;
+          // feedback.gain.value = 0.4;
+  } 
+
+  function debtRate(){ 
+
+    delay.connect(mix);
+    mix.connect(context.destination);
+    lfo.connect(depth);
+    depth.connect(delay.delayTime);
+    delay.connect(feedback);
+    feedback.connect(delay);
+
+    if (this.value){
+            var depthRate = this.value;
+          } else {
+            var depthRate = 0.0;
+          }
+
+           // var depthRate = 0.8; 
+          delay.delayTime.value  = 0.005;          
+          depth.gain.value = delay.delayTime.value * depthRate;  // 5 msec +- 4 (5 * 0.8) msec
+          mix.gain.value = 0.4;
+          feedback.gain.value = 0.4;
   }
 
- 
+
 
  var gainSlider = document.getElementById("gainSlider");
   gainSlider.addEventListener('change', function() {
@@ -219,6 +265,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var distSlider = document.getElementById("distSlider");
   var DelaySlider = document.getElementById("DelaySlider");
   var lfoSlider = document.getElementById('lfo');
+  var feedbacklfo = document.getElementById('feedbacklfo');
+  var debtrate = document.getElementById('debtrate');
 
 //   function makeDistortionCurve(amount) {
 //   var k = typeof amount === 'number' ? amount : 50,
@@ -372,12 +420,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
            
     }
     populateKeys(whites);
-   
     populateKeys(blacks);
+
+    setupFeedbackLfo();
     setupChorusLfo();
+    debtRate();
     setupDelay();
     DelaySlider.addEventListener('change', setupDelay);
     lfoSlider.addEventListener('change', setupChorusLfo);
+    feedbacklfo.addEventListener('change', setupFeedbackLfo);
+    debtrate.addEventListener('change', debtRate);
 
 
     document.getElementById("triangle").addEventListener("click", function(){
