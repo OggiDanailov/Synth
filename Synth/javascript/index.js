@@ -321,7 +321,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   echo4.onclick = setupEcho(4);
   echo5.onclick = setupEcho(5);
 
-
+///////////////////////////////////////////////////////////////////
     var pianoKeysFreq = _.map(pianoKeys, function(pianoKeys, i){
       keyNum = i + 16;
       exp = (keyNum - 49) / 12
@@ -331,7 +331,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     whites = _.where(pianoKeys, {color: "white"});
     blacks = _.where(pianoKeys, {color: "black"});
-
+//////////////////////////////////////////////////////////////////////
     function setupDelay(){
           depth.connect(delay.delayTime);
           delay.connect(feedback);
@@ -442,6 +442,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
      currentType = 'sine';});
     document.getElementById("sawtooth").addEventListener("click", function(){
      currentType = 'sawtooth';});
+    document.getElementById("custom").addEventListener("click", function(){
+     currentType = 'custom';});
 
 
 
